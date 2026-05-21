@@ -161,10 +161,10 @@ ul.task-list li input[type="checkbox"] {
   <div class="hud-brand"><span></span> UFC / PREDICTION</div>
   <nav>
     <a href="#methodology">MODEL</a>
-    <a href="#results">RESULTS</a>
+    <a href="#implementation-results">RESULTS</a>
     <a href="#conclusion">TAKEAWAY</a>
   </nav>
-  <a class="hud-action" href="#results">ENGAGE</a>
+  <a class="hud-action" href="#report-roadmap">REPORT</a>
 </header>
 
 <section class="cinematic-scroll page-columns page-full" data-cinematic-scroll="">
@@ -229,242 +229,295 @@ ul.task-list li input[type="checkbox"] {
   </div>
 </section>
 
-<section class="report-section" id="problem">
-  <div class="section-grid">
-    <div>
-      <p class="section-kicker">Problem context</p>
-      <h2 class="anchored">The fight is more than size</h2>
-    </div>
-    <div>
-      <p>The Ultimate Fighting Championship is unpredictable because fights are shaped by striking range, wrestling, clinch control, submissions, defence, decision-making, and fatigue. This project focuses on two measurable physical characteristics: height and reach.</p>
-      <p>A reach advantage may help a fighter strike from further away, while height may affect leverage, distance, and clinch positions. The research question is whether those differences are strong enough to help predict who wins.</p>
-      <p>The project also considers the broader idea that prior UFC performance, including win and loss records or streaks, may reflect fighter skill level or mental state. The final implemented model focuses on height and reach differentials because these were the clearest measurable predictors in the analysis.</p>
-      <div class="callout"><strong>Research question:</strong> can UFC fight outcomes be predicted using height and reach differentials, or are these physical traits too limited by themselves?</div>
-    </div>
+<section class="report-roadmap" id="report-roadmap" aria-label="Report structure">
+  <div class="roadmap-heading">
+    <p class="section-kicker">Final report structure</p>
+    <h2 class="anchored">Find every marking section fast</h2>
+    <p>This site follows the required Project report order, using only the final Project section of the Google Doc.</p>
+  </div>
+  <div class="roadmap-grid">
+    <a href="#introduction-background"><span>1</span>Introduction and Background</a>
+    <a href="#methodology"><span>2</span>Methodology</a>
+    <a href="#implementation-results"><span>3</span>Model Implementation and Results</a>
+    <a href="#conclusion"><span>4</span>Conclusion</a>
+    <a href="#contributions"><span>5</span>Contribution Statements</a>
+    <a href="#appendix"><span>6</span>Appendix</a>
   </div>
 </section>
 
-<section class="report-section dark" id="objectives">
-  <div class="section-grid">
+<section class="report-chapter" id="introduction-background">
+  <header class="chapter-header">
     <div>
-      <p class="section-kicker">Objectives</p>
-      <h2 class="anchored">What we tested</h2>
+      <p class="section-kicker">1. Introduction and Background</p>
+      <h2 class="anchored">Why UFC outcomes are hard to predict</h2>
     </div>
-    <div>
-      <ul>
-        <li>Determine whether height and reach have a significant impact on UFC fight outcomes.</li>
-        <li>Create a model that estimates the probability of a blue-corner win using physical differentials.</li>
-        <li>Check whether the model performs meaningfully better than a simple 50/50 prediction.</li>
-        <li>Validate the model using historical UFC data and interpret whether the result has practical value for fight analysis.</li>
-      </ul>
-      <p>The project is statistically useful because it shows how likelihood estimation, logistic regression, and large-scale data can be applied to a real sporting problem. Practically, it may help analysts, coaches, fighters, and betting markets understand whether body measurements provide useful information, while also showing the limits of relying on them alone.</p>
-      <div class="metric-grid">
-        <div class="metric"><strong>14</strong><span>selected variables</span></div>
-        <div class="metric"><strong>2</strong><span>main predictors</span></div>
-        <div class="metric"><strong>52.7%</strong><span>joint model accuracy</span></div>
+    <p class="chapter-lede">The project asks whether measurable physical advantages, especially height and reach, can explain the outcome of UFC fights.</p>
+  </header>
+
+  <div class="subsection-stack">
+    <article class="report-subsection" id="problem-context">
+      <h3 class="anchored">Problem context</h3>
+      <div>
+        <p>The Ultimate Fighting Championship is the world's largest host of Mixed Martial Arts. MMA is unpredictable because fights combine striking, clinching, wrestling, grappling, pressure, fatigue, and decision-making under one rule set.</p>
+        <p>This project focuses on two physical traits: height and reach. A shorter fighter may be stronger in close clinch exchanges, while a fighter with longer reach may strike from a safer distance and hit without being hit back.</p>
+        <p>The project also considered whether prior UFC performance, such as win and loss streaks, may affect fighter confidence, skill perception, and fight outcomes. The final model uses the clearest implemented predictors: height and reach differentials.</p>
+        <div class="callout"><strong>Core question:</strong> can UFC fight outcomes be predicted using height and reach differences, or are these traits too limited on their own?</div>
       </div>
-    </div>
+    </article>
+
+    <article class="report-subsection" id="objectives">
+      <h3 class="anchored">Objectives</h3>
+      <div>
+        <ul>
+          <li>Determine whether height and reach have a significant impact on UFC fight outcomes.</li>
+          <li>Create a model that estimates the likelihood of a blue-corner win.</li>
+          <li>Validate the model using historical UFC data.</li>
+        </ul>
+        <div class="metric-grid">
+          <div class="metric"><strong>14</strong><span>selected variables</span></div>
+          <div class="metric"><strong>2</strong><span>main predictors</span></div>
+          <div class="metric"><strong>52.7%</strong><span>joint model accuracy</span></div>
+        </div>
+      </div>
+    </article>
+
+    <article class="report-subsection" id="significance">
+      <h3 class="anchored">Significance</h3>
+      <div>
+        <p>Statistically, this project demonstrates how likelihood estimation, logistic regression, and large-scale data can be used on a real sporting problem. It also shows the Law of Large Numbers in practice by using thousands of historical UFC fights.</p>
+        <p>Practically, the results may help fight analysts, coaches, fighters, odds makers, and sports bettors understand whether body measurements provide useful information. The project is also important because it shows the limits of relying on physical traits alone.</p>
+      </div>
+    </article>
+
+    <article class="report-subsection" id="literature-review">
+      <h3 class="anchored">Brief literature review</h3>
+      <div>
+        <p>Previous research into UFC prediction supports the idea that fight outcomes can be studied with probabilistic models, especially when models include fighter history, body measurements, and performance statistics.</p>
+        <p>Gavin Walsh's <em>Predictive Analysis of UFC Fights</em> is relevant because it studies whether previous fighter information can help estimate winners. Research into anthropometric profiling is also relevant because physical attributes such as BMI, weight class, height, and reach can influence fighter performance.</p>
+        <p>Holmes, McHale, and Zychaluk showed that mixed martial arts contests can be analysed using probabilistic forecasting methods rather than only betting odds or opinion. Our project builds from those ideas by testing the smaller question of whether height and reach alone contain a measurable predictive signal.</p>
+      </div>
+    </article>
   </div>
 </section>
 
-<section class="report-section" id="literature-review">
-  <div class="section-grid">
+<section class="report-chapter dark" id="methodology">
+  <header class="chapter-header">
     <div>
-      <p class="section-kicker">Literature review</p>
-      <h2 class="anchored">Why modelling UFC outcomes makes sense</h2>
+      <p class="section-kicker">2. Methodology</p>
+      <h2 class="anchored">How the model was built</h2>
     </div>
-    <div>
-      <p>Previous research into UFC prediction shows that fight outcomes can be studied using probabilistic models, especially when models include fighter history, physical measurements, and performance statistics. Gavin Walsh's predictive analysis is relevant because it explores whether previous fighter information can help estimate winners.</p>
-      <p>Research on anthropometric profiling also supports this project because physical features such as body size, reach, and weight class can influence fighter performance. Holmes, McHale, and Zychaluk similarly showed that mixed martial arts outcomes can be analysed through statistical forecasting rather than only betting odds or personal opinion.</p>
-      <p>Our project builds on those ideas by testing a smaller question: whether height and reach differentials alone provide a measurable predictive signal.</p>
-    </div>
-  </div>
-</section>
+    <p class="chapter-lede">The model treats each fight as a binary outcome and uses logistic regression to estimate the probability of a blue-corner win.</p>
+  </header>
 
-<section class="report-section dark" id="methodology">
-  <div class="section-grid">
-    <div>
-      <p class="section-kicker">Methodology</p>
-      <h2 class="anchored">Logistic regression for a binary result</h2>
-    </div>
-    <div>
-      <p>The project uses a publicly available Kaggle UFC dataset containing historical fight information, fighter measurements, and fight outcomes. Although the dataset contains 144 columns, the analysis focuses on selected fighter identifiers, height, reach, age, win/loss records, weight class, and winner.</p>
-      <p>The outcome was converted into a binary variable where a blue-corner win equals 1 and a red-corner win equals 0.</p>
-      <pre><code>ufc$outcome &lt;- ifelse(ufc$Winner == "Blue", 1, 0)</code></pre>
-      <p>Height and reach differentials were calculated relative to the blue-corner fighter.</p>
-      <pre><code>ufc$heightdiff &lt;- ufc$B_Height_cms - ufc$R_Height_cms
+  <div class="subsection-stack">
+    <article class="report-subsection" id="data-description">
+      <h3 class="anchored">Description of data</h3>
+      <div>
+        <p>The dataset contains around 6000 UFC fights and 144 columns. It includes fighter names, weight class, height, reach, age, win/loss records, and the winner of each fight, covering fights from 2019 to 2021 across countries including the UK, USA, UAE, Canada, Brazil, and China.</p>
+        <p>Although the dataset has 144 columns, the analysis selected 14 variables: <code>R_fighter</code>, <code>B_fighter</code>, <code>weight_class</code>, <code>B_Height_cms</code>, <code>R_Height_cms</code>, <code>B_age</code>, <code>R_age</code>, <code>R_Reach_cms</code>, <code>B_Reach_cms</code>, <code>Winner</code>, <code>R_wins</code>, <code>R_losses</code>, <code>B_wins</code>, and <code>B_losses</code>.</p>
+        <p>Rows with missing height, reach, or outcome values were removed. The red-corner wins were then downsampled to match the number of blue-corner wins so the model would not simply learn that red won more often in the original data.</p>
+      </div>
+    </article>
+
+    <article class="report-subsection" id="assumptions-model">
+      <h3 class="anchored">Assumptions and model formulation</h3>
+      <div>
+        <p>The key assumptions were that height and reach stay consistent across a fighter's career, fights are independent, physical stats are measured accurately, and fight outcomes are simplified to win/loss only. The model also assumes that each extra centimetre of height or reach has a constant effect on the log-odds of winning.</p>
+        <p>The outcome was coded as 1 for a blue-corner win and 0 for a red-corner win. Height and reach differentials were measured from the blue fighter's perspective.</p>
+        <pre><code>ufc$outcome    &lt;- ifelse(ufc$Winner == "Blue", 1, 0)
+ufc$heightdiff &lt;- ufc$B_Height_cms - ufc$R_Height_cms
 ufc$reachdiff  &lt;- ufc$B_Reach_cms  - ufc$R_Reach_cms</code></pre>
-      <p>The joint logistic regression model was:</p>
-      <pre><code>glm(outcome ~ heightdiff + reachdiff,
+        <p>The final joint model was:</p>
+        <pre><code>glm(outcome ~ heightdiff + reachdiff,
     data = ufc_balanced,
     family = binomial(link = "logit"))</code></pre>
-      <p>The main assumptions were that measurements are consistent, fights are independent, outcomes are treated as binary wins/losses, and each extra centimetre of height or reach has a constant effect on the log-odds of winning. These assumptions simplify real MMA, but they make the model interpretable.</p>
-      <p>Because red-corner fighters won more often in the raw dataset, red wins were randomly downsampled to match the number of blue wins. This created a balanced dataset so the model did not simply learn a red-corner baseline advantage.</p>
-    </div>
+      </div>
+    </article>
+
+    <article class="report-subsection" id="modelling-choices">
+      <h3 class="anchored">Justification of modelling choices</h3>
+      <div>
+        <p>A generalised linear model was chosen because the response variable is binary: either the blue fighter wins or the red fighter wins. This makes a Bernoulli/binomial logistic regression appropriate for modelling the probability of a win.</p>
+        <p>The Bernoulli idea applies to one fight because there are two outcomes, win or loss. The binomial regression idea applies across many fights because the model learns which predictors are related to repeated binary outcomes.</p>
+        <p>This approach is useful because it directly tests whether height and reach advantages influence UFC outcomes, while staying easy to interpret. The trade-off is that the model is deliberately simple and cannot capture all the technical complexity of MMA.</p>
+      </div>
+    </article>
   </div>
 </section>
 
-<section class="report-section" id="results">
-  <div class="section-grid">
+<section class="report-chapter" id="implementation-results">
+  <header class="chapter-header">
     <div>
-      <p class="section-kicker">Results</p>
-      <h2 class="anchored">Reach stayed significant. Height did not.</h2>
+      <p class="section-kicker">3. Model Implementation and Results</p>
+      <h2 class="anchored">Reach mattered. Height faded.</h2>
     </div>
-    <div>
-      <p>When height and reach were modelled separately, both appeared to have some relationship with winning. However, once both variables were included together, height became statistically insignificant while reach remained significant.</p>
-      <p>Before modelling, the project inspected height and reach differential distributions using histograms, Q-Q plots, and Shapiro-Wilk tests. The distributions were roughly centred around zero and visually close enough for the project purpose, although the formal Shapiro-Wilk test rejected strict normality because the dataset was large.</p>
-      
+    <p class="chapter-lede">The final results show a small reach signal, weak height evidence, and overall predictive accuracy only slightly above chance.</p>
+  </header>
+
+  <div class="subsection-stack">
+    <article class="report-subsection" id="implementation">
+      <h3 class="anchored">Implementation</h3>
+      <div>
+        <p>After cleaning missing entries, the project created the binary outcome and the two main predictor differences. A balanced dataset was created by sampling red-corner wins to match blue-corner wins.</p>
+        <pre><code>blue_wins &lt;- subset(ufc, outcome == 1)
+red_wins  &lt;- subset(ufc, outcome == 0)
+red_sample &lt;- red_wins[sample(nrow(red_wins), nrow(blue_wins)), ]
+ufc_balanced &lt;- rbind(blue_wins, red_sample)</code></pre>
+        <p>Individual Bernoulli logistic models were fitted for height and reach separately, then a joint model was fitted using both predictors together.</p>
+      </div>
+    </article>
+
+    <article class="report-subsection" id="statistical-summaries">
+      <h3 class="anchored">Statistical summaries and visualisations</h3>
+      <div>
+        <p>Height and reach differential distributions were inspected using histograms, Q-Q plots, and Shapiro-Wilk tests. The plots were roughly centred around zero, but the Shapiro-Wilk tests rejected strict normality, which is common in large datasets where small deviations become statistically significant.</p>
+        <p>The individual models suggested both height and reach had some relationship with winning. Height had a coefficient around 0.0116 with p = 0.0274, while reach had a coefficient around 0.0179 with p = 0.0000136.</p>
+        
 <table class="model-table caption-top table">
 <thead>
 <tr class="header">
-<th data-quarto-table-cell-role="th">Predictor</th>
-<th data-quarto-table-cell-role="th">Joint model result</th>
-<th data-quarto-table-cell-role="th">Interpretation</th>
+<th data-quarto-table-cell-role="th">Model check</th>
+<th data-quarto-table-cell-role="th">Result</th>
+<th data-quarto-table-cell-role="th">Meaning</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>Height differential</td>
-<td>p = 0.478</td>
-<td>Not statistically reliable once reach is included.</td>
+<td>Height individual model</td>
+<td>p = 0.0274</td>
+<td>Some evidence when tested alone.</td>
 </tr>
 <tr class="even">
-<td>Reach differential</td>
-<td>p = 0.000132</td>
-<td>Small but statistically significant positive effect.</td>
+<td>Reach individual model</td>
+<td>p = 0.0000136</td>
+<td>Strong evidence when tested alone.</td>
 </tr>
 <tr class="odd">
-<td>Joint model accuracy</td>
-<td>52.73%</td>
-<td>Only slightly better than a coin flip.</td>
+<td>Height in joint model</td>
+<td>p = 0.478</td>
+<td>No reliable effect once reach is included.</td>
+</tr>
+<tr class="even">
+<td>Reach in joint model</td>
+<td>p = 0.000132</td>
+<td>Small but reliable positive effect.</td>
 </tr>
 </tbody>
 </table>
 
-      <div class="metric-grid">
-        <div class="metric"><strong>0.0203</strong><span>joint reach coefficient</span></div>
-        <div class="metric"><strong>0.478</strong><span>height p-value</span></div>
-        <div class="metric"><strong>0.6904</strong><span>log-loss</span></div>
+        <div class="metric-grid">
+          <div class="metric"><strong>0.0203</strong><span>joint reach coefficient</span></div>
+          <div class="metric"><strong>0.478</strong><span>height p-value</span></div>
+          <div class="metric"><strong>0.6904</strong><span>log-loss</span></div>
+        </div>
+        <p>The confidence interval for height included 1, meaning the true effect could be positive, negative, or zero. The confidence interval for reach stayed above 1, supporting the conclusion that reach has a small but real effect.</p>
       </div>
-      <p>The confidence interval for height included 1, meaning its true effect could be positive, negative, or zero. The confidence interval for reach stayed above 1, supporting the conclusion that reach has a small but real effect.</p>
-    </div>
-  </div>
-  <div class="figure-row">
-    <figure class="figure-card figure">
-      <img src="assets/figures/unnamed-chunk-4-1.png" alt="Project output figure" class="figure-img">
-      <figcaption>Distribution and diagnostic visualisation from the project outputs.</figcaption>
-    </figure>
-    <figure class="figure-card figure">
-      <img src="assets/figures/unnamed-chunk-8-1.png" alt="Model output figure" class="figure-img">
-      <figcaption>Model visualisation showing how predictor differentials relate to win probability.</figcaption>
-    </figure>
+    </article>
+
+    <article class="report-subsection" id="visualisations">
+      <h3 class="anchored">Project visualisations</h3>
+      <div class="figure-row">
+        <figure class="figure-card figure">
+          <img src="assets/figures/unnamed-chunk-4-1.png" alt="Height and reach differential distributions" class="figure-img">
+          <figcaption>Distribution checks for height and reach differentials.</figcaption>
+        </figure>
+        <figure class="figure-card figure">
+          <img src="assets/figures/unnamed-chunk-8-1.png" alt="Logistic model probability curves" class="figure-img">
+          <figcaption>Model visualisation showing predictor differential against blue win probability.</figcaption>
+        </figure>
+      </div>
+    </article>
+
+    <article class="report-subsection" id="interpretation">
+      <h3 class="anchored">Interpretation in context</h3>
+      <div>
+        <p>The results show that predicting UFC fight outcomes using only height and reach is not practically reliable. Height had no meaningful effect in the joint model, while reach showed a small but non-negligible influence.</p>
+        <p>This makes sense in MMA. Height may help in some situations, but fights also include clinch work, wrestling, ground exchanges, and weight classes that reduce extreme size differences. Reach can help a fighter strike from outside the opponent's range, but this can be neutralised by closing distance, footwork, wrestling, pressure, and superior skill.</p>
+        <div class="callout">The model's 52.73% accuracy means physical traits give a signal, but not enough certainty for dependable prediction.</div>
+      </div>
+    </article>
   </div>
 </section>
 
-<section class="report-section dark" id="interpretation">
-  <div class="section-grid">
+<section class="report-chapter dark" id="conclusion">
+  <header class="chapter-header">
     <div>
-      <p class="section-kicker">Interpretation</p>
-      <h2 class="anchored">Signal, not certainty</h2>
+      <p class="section-kicker">4. Conclusion</p>
+      <h2 class="anchored">Useful signal, weak prediction</h2>
     </div>
-    <div>
-      <p>The results suggest that height and reach are not enough to reliably predict a UFC fight outcome on their own. Height had no meaningful effect in the joint model, likely because UFC fights occur across striking, clinch, wrestling, and ground exchanges where height can be neutralised.</p>
-      <p>Reach showed the stronger effect. This makes practical sense because a longer reach can allow a fighter to strike from safer range. However, the advantage is often reduced by closing distance, wrestling, footwork, pressure, and technical skill.</p>
-      <div class="callout">Physical traits give a clue, but not a reliable prediction by themselves.</div>
-    </div>
-  </div>
-</section>
+    <p class="chapter-lede">Reach is worth noticing, but it should not be treated as a fight-prediction answer by itself.</p>
+  </header>
 
-<section class="report-section" id="strengths-limitations">
-  <div class="section-grid">
-    <div>
-      <p class="section-kicker">Strengths and limitations</p>
-      <h2 class="anchored">What worked and what held the model back</h2>
-    </div>
-    <div>
-      <h3 class="anchored">Strengths</h3>
-      <ul>
-        <li>The study used a large real-world UFC dataset rather than a tiny sample.</li>
-        <li>Logistic regression matched the binary win/loss structure of the problem.</li>
-        <li>The model was interpretable, making it clear how each centimetre of reach changed the log-odds of winning.</li>
-      </ul>
-      <h3 class="anchored">Limitations</h3>
-      <ul>
-        <li>The model only used height and reach, ignoring skill, style, recent form, injuries, striking accuracy, takedown defence, and other fight-specific factors.</li>
-        <li>The model assumed a linear relationship between physical advantages and log-odds of winning.</li>
-        <li>The final accuracy was only around 52.7%, meaning the model was not practically reliable for prediction.</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<section class="report-section dark" id="future-work">
-  <div class="section-grid">
-    <div>
-      <p class="section-kicker">Future work</p>
-      <h2 class="anchored">A better model needs better fight features</h2>
-    </div>
-    <div>
-      <p>Future work could improve predictive performance by adding variables that better describe fighter ability and matchup context. Useful extensions include age, weight class, previous UFC records, win/loss streaks, significant strikes landed per minute, striking defence, takedown average, takedown defence, submission attempts, stance, and recent activity.</p>
-      <p>The modelling approach could also be extended beyond simple logistic regression. Interaction terms, nonlinear logistic models, random forests, or other machine learning methods may capture relationships that a linear log-odds model cannot.</p>
-    </div>
-  </div>
-</section>
-
-<section class="report-section" id="conclusion">
-  <p class="section-kicker">Conclusion</p>
-  <h2 class="anchored">Final takeaway</h2>
   <div class="conclusion-grid">
     <article class="conclusion-card">
-      <h3 class="anchored">Results</h3>
-      <p>Height became insignificant in the joint model, while reach remained statistically significant with a small positive effect.</p>
+      <h3 class="anchored">Discussion of results</h3>
+      <p>Height and reach appeared useful when viewed separately, but in the joint logistic regression model height became statistically insignificant while reach remained significant.</p>
     </article>
     <article class="conclusion-card">
-      <h3 class="anchored">Limits</h3>
-      <p>The model predicted only slightly above chance, showing that physical traits alone cannot explain UFC outcomes.</p>
+      <h3 class="anchored">Strengths and limitations</h3>
+      <p>The study used a large real-world UFC dataset and an interpretable binary model. Its main limitation is that it only used a small set of physical predictors and assumed a linear log-odds relationship.</p>
     </article>
     <article class="conclusion-card">
-      <h3 class="anchored">Extensions</h3>
-      <p>Future models should include technical performance, fighter history, weight class, and more flexible nonlinear methods.</p>
+      <h3 class="anchored">Possible extensions</h3>
+      <p>Future models could include age, weight class, win/loss streaks, injuries, weight on fight day, striking accuracy, takedowns, defence, recent activity, nonlinear models, and machine learning methods.</p>
     </article>
     <article class="conclusion-card">
-      <h3 class="anchored">Practical use</h3>
-      <p>Reach is worth considering in analysis, but it should not be used alone for betting, coaching decisions, or serious prediction.</p>
+      <h3 class="anchored">Practical implications</h3>
+      <p>Reach can be included in more complex fight analysis, but the model is not strong enough for serious betting, coaching, or forecasting decisions on its own.</p>
     </article>
   </div>
-  <p>Overall, this study found that physical advantages alone are not strong enough to reliably predict the outcome of a UFC fight. Reach differential is the more useful physical predictor, but the joint model's 52.7% accuracy shows that the effect is modest and not enough for dependable forecasting.</p>
+
+  <p>Overall, this project found that physical advantages alone are not strong enough to reliably predict UFC outcomes. Each extra centimetre of reach increased the odds by roughly 2%, but the final accuracy of about 52.7% was only slightly better than a random 50/50 guess.</p>
 </section>
 
-<section class="report-section dark" id="contributions">
-  <div class="section-grid">
+<section class="report-chapter" id="contributions">
+  <header class="chapter-header">
     <div>
-      <p class="section-kicker">Contribution statements</p>
+      <p class="section-kicker">5. Contribution statements</p>
       <h2 class="anchored">Project roles</h2>
     </div>
-    <div>
-      <ul>
-        <li>P. Lew: Methodology, writing, review and editing, model implementation and results.</li>
-        <li>L. Mondi: Methodology, writing, introduction and background, review and editing, web design.</li>
-        <li>E. Yap: Methodology, writing, model implementation and results, review and editing.</li>
-      </ul>
-    </div>
+    <p class="chapter-lede">Each group member contributed to writing, modelling, review, or presentation.</p>
+  </header>
+  <div class="contribution-list">
+    <p><strong>P. Lew:</strong> Methodology, writing, review and editing, model implementation and results.</p>
+    <p><strong>L. Mondi:</strong> Methodology, writing, introduction and background, review and editing, web design.</p>
+    <p><strong>E. Yap:</strong> Methodology, writing, model implementation and results, review and editing.</p>
   </div>
 </section>
 
-<section class="report-section dark" id="references">
-  <div class="section-grid">
+<section class="report-chapter dark" id="appendix">
+  <header class="chapter-header">
     <div>
-      <p class="section-kicker">References</p>
-      <h2 class="anchored">Sources</h2>
+      <p class="section-kicker">6. Appendix</p>
+      <h2 class="anchored">Code and supplementary outputs</h2>
     </div>
-    <div>
-      <ul>
-        <li>UFC. (2018). <em>History of UFC</em>. https://www.ufc.com/history-ufc</li>
-        <li>Australian Institute of Health and Welfare. (2023). <em>Gambling in Australia</em>. https://www.aihw.gov.au/reports/australias-welfare/gambling</li>
-        <li>Walsh, G. <em>Predictive Analysis of UFC Fights</em>.</li>
-        <li>Holmes, M., McHale, I., &amp; Zychaluk, K. (2023). Probabilistic forecasting methods for mixed martial arts outcomes.</li>
-      </ul>
-    </div>
+    <p class="chapter-lede">The appendix keeps the supporting code and extra outputs separate from the marker-facing report flow.</p>
+  </header>
+  <div class="subsection-stack">
+    <article class="report-subsection">
+      <h3 class="anchored">Core code</h3>
+      <div>
+        <pre><code>base &lt;- read.csv("data.csv")
+ufc &lt;- base[, c("R_fighter", "B_fighter", "weight_class",
+                "B_Height_cms", "R_Height_cms", "B_age", "R_age",
+                "R_Reach_cms", "B_Reach_cms", "Winner",
+                "R_wins", "R_losses", "B_wins", "B_losses")]
+ufc$outcome    &lt;- ifelse(ufc$Winner == "Blue", 1, 0)
+ufc$heightdiff &lt;- ufc$B_Height_cms - ufc$R_Height_cms
+ufc$reachdiff  &lt;- ufc$B_Reach_cms  - ufc$R_Reach_cms</code></pre>
+      </div>
+    </article>
+    <article class="report-subsection">
+      <h3 class="anchored">References</h3>
+      <div>
+        <ul>
+          <li>UFC. (2018). <em>History of UFC</em>. https://www.ufc.com/history-ufc</li>
+          <li>Australian Institute of Health and Welfare. (2023). <em>Gambling in Australia</em>. https://www.aihw.gov.au/reports/australias-welfare/gambling</li>
+          <li>Walsh, G. <em>Predictive Analysis of UFC Fights</em>.</li>
+          <li>Holmes, M., McHale, I., &amp; Zychaluk, K. (2023). Probabilistic forecasting methods for mixed martial arts outcomes.</li>
+        </ul>
+      </div>
+    </article>
   </div>
 </section>
 

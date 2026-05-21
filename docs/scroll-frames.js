@@ -71,19 +71,17 @@
     const heroFade = smoothstep(0.12, 0.36, progress);
     const panelIn = smoothstep(0.2, 0.38, progress);
     const quoteOut = smoothstep(0.12, 0.32, progress);
-    const deckYaw = -10 + 20 * progress;
-    const deckPitch = 4 - 8 * progress;
-    const deckLift = -7 * progress;
+    const deckLift = -3.5 * progress;
 
     frameOne.style.opacity = String(1 - swap);
     frameTwo.style.opacity = String(swap);
 
-    deck.style.transform = `translateY(${deckLift}vh) rotateX(${deckPitch}deg) rotateY(${deckYaw}deg)`;
+    deck.style.transform = `translate3d(0, ${deckLift}vh, 0)`;
 
-    frameOne.style.transform = `translate(${-20 * progress}vw, ${-6 * progress}vh) rotateX(${5 * progress}deg) rotateY(${-34 * progress}deg) scale(${1.14 - 0.08 * progress})`;
-    frameTwo.style.transform = `translate(${24 * (1 - swap)}vw, ${-6 * (1 - swap)}vh) rotateX(${-8 + 8 * swap}deg) rotateY(${38 - 38 * swap}deg) scale(${1.22 - 0.1 * swap})`;
-    frameOne.style.filter = "saturate(1.06) contrast(1.08)";
-    frameTwo.style.filter = "saturate(1.08) contrast(1.1)";
+    frameOne.style.transform = `translate3d(${-7 * progress}vw, ${-2.4 * progress}vh, 0) scale(${1.04 - 0.015 * progress})`;
+    frameTwo.style.transform = `translate3d(${7 * (1 - swap)}vw, ${-2 * (1 - swap)}vh, 0) scale(${1.04 - 0.015 * swap})`;
+    frameOne.style.filter = "saturate(1.02) contrast(1.04)";
+    frameTwo.style.filter = "saturate(1.02) contrast(1.04)";
 
     heroCopy.style.opacity = String(1 - heroFade);
     heroCopy.style.transform = `translateY(${-26 * heroFade}px) scale(${1 - 0.035 * heroFade})`;

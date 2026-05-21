@@ -121,9 +121,8 @@ main.content.column-page {
   height: 100vh;
   min-height: 100vh;
   overflow: hidden;
-  display: grid;
-  place-items: center;
-  perspective: 1200px;
+  display: block !important;
+  perspective: 1800px;
   background: #050506;
 }
 
@@ -140,19 +139,23 @@ main.content.column-page {
 
 .frame-deck {
   position: absolute;
-  inset: 0;
+  inset: -1px !important;
+  width: calc(100vw + 2px);
+  max-width: none;
+  margin: 0;
   transform-style: preserve-3d;
   will-change: transform;
 }
 
 .fight-frame {
   position: absolute;
-  inset: -8vh -8vw;
-  width: 116vw;
-  height: 116vh;
+  inset: -3vh -3vw;
+  width: 106vw;
+  max-width: none !important;
+  height: 106vh;
   object-fit: cover;
   object-position: center;
-  filter: saturate(1.05) contrast(1.08);
+  filter: saturate(1.02) contrast(1.04);
   transform-origin: center;
   will-change: transform, opacity, filter;
   backface-visibility: hidden;
@@ -161,13 +164,13 @@ main.content.column-page {
 .frame-one {
   opacity: 1;
   z-index: 1;
-  transform: scale(1.04);
+  transform: scale(1.02);
 }
 
 .frame-two {
   opacity: 0;
   z-index: 2;
-  transform: translate(18vw, -2vh) rotateY(30deg) scale(1.12);
+  transform: translate(7vw, -1vh) scale(1.02);
 }
 
 .hud-corners {
@@ -406,8 +409,11 @@ main.content.column-page {
 }
 
 .summary-card {
+  min-height: 128px;
   padding: 28px clamp(20px, 4vw, 58px);
   border-right: 1px solid rgba(255,255,255,.12);
+  display: grid;
+  align-content: center;
 }
 
 .summary-card span {
@@ -426,46 +432,145 @@ main.content.column-page {
   line-height: 1.1;
 }
 
-.report-section {
-  padding: 88px clamp(22px, 7vw, 122px);
+.report-roadmap,
+.report-chapter {
+  padding: 84px clamp(22px, 7vw, 122px);
   scroll-margin-top: 72px;
 }
 
-.report-section.dark {
+.report-roadmap {
+  background: #f6f4ef;
+  color: var(--ink);
+  border-bottom: 1px solid rgba(0,0,0,.1);
+}
+
+.roadmap-heading {
+  max-width: 920px;
+  margin-bottom: 30px;
+}
+
+.roadmap-heading h2,
+.chapter-header h2 {
+  margin: 0;
+  font-size: clamp(38px, 5vw, 72px);
+  line-height: .98;
+  letter-spacing: 0;
+  font-weight: 950;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+
+.roadmap-heading p:last-child,
+.chapter-lede {
+  color: var(--muted);
+  font-size: clamp(18px, 2vw, 24px);
+  line-height: 1.45;
+}
+
+.roadmap-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.roadmap-grid a {
+  min-height: 112px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 20px;
+  border: 1px solid rgba(0,0,0,.1);
+  background: #fff;
+  color: var(--ink);
+  text-decoration: none;
+  font-size: clamp(18px, 1.7vw, 24px);
+  line-height: 1.2;
+  font-weight: 900;
+  box-shadow: 0 12px 34px rgba(0,0,0,.06);
+}
+
+.roadmap-grid span {
+  width: 42px;
+  height: 42px;
+  flex: 0 0 42px;
+  display: grid;
+  place-items: center;
+  background: var(--bg);
+  color: var(--gold);
+  font-weight: 950;
+}
+
+.report-chapter {
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.report-chapter.dark {
   background: var(--bg);
   color: #f8fafc;
 }
 
-.section-grid {
+.chapter-header {
   display: grid;
-  grid-template-columns: minmax(220px, .52fr) minmax(320px, 1fr);
-  gap: clamp(28px, 6vw, 84px);
+  grid-template-columns: minmax(260px, .72fr) minmax(320px, 1fr);
+  gap: clamp(26px, 5vw, 72px);
   align-items: start;
+  padding-bottom: 34px;
+  margin-bottom: 12px;
+  border-bottom: 1px solid rgba(0,0,0,.12);
 }
 
-.section-grid > * {
+.dark .chapter-header {
+  border-bottom-color: rgba(255,255,255,.14);
+}
+
+.chapter-header > *,
+.report-subsection > * {
   min-width: 0;
 }
 
-.report-section h2 {
-  margin: 0 0 22px;
-  font-size: clamp(34px, 5.5vw, 72px);
-  line-height: .96;
-  letter-spacing: 0;
-  font-weight: 950;
-  text-transform: uppercase;
+.subsection-stack {
+  display: grid;
+  gap: 0;
 }
 
-.report-section h3 {
-  margin: 34px 0 8px;
-  font-size: clamp(22px, 2.4vw, 34px);
+.report-subsection {
+  display: grid;
+  grid-template-columns: minmax(210px, 310px) minmax(0, 1fr);
+  gap: clamp(24px, 4vw, 58px);
+  padding: 34px 0;
+  border-bottom: 1px solid rgba(0,0,0,.1);
+}
+
+.dark .report-subsection {
+  border-bottom-color: rgba(255,255,255,.12);
+}
+
+.report-subsection h3,
+.conclusion-card h3 {
+  margin: 0;
+  font-size: clamp(22px, 2.3vw, 34px);
+  line-height: 1.08;
   font-weight: 900;
+  text-wrap: balance;
 }
 
-.report-section p,
-.report-section li {
+.report-chapter p,
+.report-chapter li {
   font-size: 18px;
-  line-height: 1.72;
+  line-height: 1.68;
+}
+
+.report-subsection p:first-child,
+.conclusion-card p:first-child,
+.contribution-list p:first-child {
+  margin-top: 0;
+}
+
+.report-subsection p:last-child,
+.conclusion-card p:last-child,
+.contribution-list p:last-child {
+  margin-bottom: 0;
 }
 
 .dark p,
@@ -478,6 +583,8 @@ main.content.column-page {
   padding: 18px 22px;
   border-left: 5px solid var(--red);
   background: rgba(216,36,53,.09);
+  font-size: 18px;
+  line-height: 1.55;
 }
 
 pre {
@@ -511,14 +618,21 @@ pre {
 }
 
 .metric {
+  min-height: 156px;
   padding: 22px;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  align-content: center;
+  overflow: hidden;
 }
 
 .metric strong {
   display: block;
   color: var(--red);
-  font-size: clamp(34px, 4vw, 56px);
-  line-height: 1;
+  font-size: clamp(32px, 3vw, 52px);
+  line-height: .95;
+  white-space: nowrap;
 }
 
 .metric span {
@@ -537,6 +651,7 @@ pre {
   border-collapse: collapse;
   margin: 22px 0;
   font-size: 17px;
+  table-layout: fixed;
 }
 
 .model-table th,
@@ -549,6 +664,10 @@ pre {
 .model-table th {
   background: #11151b;
   color: #fff;
+}
+
+.dark .model-table td {
+  border-bottom-color: rgba(255,255,255,.16);
 }
 
 .figure-row {
@@ -566,6 +685,7 @@ pre {
 .figure-card img {
   display: block;
   width: 100%;
+  height: auto;
 }
 
 .figure-card figcaption {
@@ -586,8 +706,23 @@ pre {
   padding: 22px;
 }
 
-.conclusion-card h3 {
-  margin-top: 0;
+.dark .conclusion-card {
+  background: rgba(255,255,255,.07);
+  border-color: var(--line);
+}
+
+.contribution-list {
+  display: grid;
+  gap: 14px;
+  max-width: 920px;
+}
+
+.contribution-list p {
+  margin: 0;
+  padding: 22px;
+  background: #fff;
+  border: 1px solid rgba(0,0,0,.08);
+  box-shadow: 0 16px 48px rgba(0,0,0,.06);
 }
 
 @media (max-width: 900px) {
@@ -669,15 +804,31 @@ pre {
   }
 
   .project-summary,
-  .section-grid,
+  .roadmap-grid,
+  .chapter-header,
+  .report-subsection,
   .metric-grid,
   .figure-row,
   .conclusion-grid {
     grid-template-columns: 1fr;
   }
 
-  .report-section {
+  .report-roadmap,
+  .report-chapter {
     padding: 56px 22px;
+  }
+
+  .roadmap-heading h2,
+  .chapter-header h2 {
+    font-size: clamp(34px, 12vw, 54px);
+  }
+
+  .report-subsection {
+    padding: 28px 0;
+  }
+
+  .metric {
+    min-height: 132px;
   }
 
   pre code {
