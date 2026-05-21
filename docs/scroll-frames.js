@@ -10,6 +10,10 @@
   const panelTitle = section.querySelector("[data-panel-title]");
   const panelBody = section.querySelector("[data-panel-body]");
   const meter = section.querySelector("[data-scroll-meter]");
+  const reactor = section.querySelector("[data-reactor]");
+  const sequence = section.querySelector("[data-sequence]");
+  const quoteCard = section.querySelector("[data-quote-card]");
+  const deck = section.querySelector(".frame-deck");
 
   const copy = [
     {
@@ -46,12 +50,15 @@
       frameTwo.style.opacity = "0";
       frameOne.style.transform = "none";
       frameTwo.style.transform = "none";
+      deck.style.transform = "none";
       frameOne.style.filter = "";
       frameTwo.style.filter = "";
       heroCopy.style.opacity = "1";
       heroCopy.style.transform = "none";
       panel.style.opacity = "1";
       panel.style.transform = "none";
+      quoteCard.style.opacity = "0";
+      quoteCard.style.transform = "none";
       meter.style.transform = "scaleX(0)";
       setCopy(0);
       return;
@@ -63,6 +70,7 @@
     const swap = smoothstep(0.42, 0.62, progress);
     const heroFade = smoothstep(0.12, 0.36, progress);
     const panelIn = smoothstep(0.2, 0.38, progress);
+    const quoteOut = smoothstep(0.12, 0.32, progress);
     const deckYaw = -10 + 20 * progress;
     const deckPitch = 4 - 8 * progress;
     const deckLift = -7 * progress;
@@ -70,10 +78,10 @@
     frameOne.style.opacity = String(1 - swap);
     frameTwo.style.opacity = String(swap);
 
-    section.querySelector(".frame-deck").style.transform = `translateY(${deckLift}vh) rotateX(${deckPitch}deg) rotateY(${deckYaw}deg)`;
+    deck.style.transform = `translateY(${deckLift}vh) rotateX(${deckPitch}deg) rotateY(${deckYaw}deg)`;
 
-    frameOne.style.transform = `translate(${-18 * progress}vw, ${-6 * progress}vh) rotateX(${5 * progress}deg) rotateY(${-30 * progress}deg) scale(${1.12 - 0.08 * progress})`;
-    frameTwo.style.transform = `translate(${22 * (1 - swap)}vw, ${-5 * (1 - swap)}vh) rotateX(${-8 + 8 * swap}deg) rotateY(${34 - 34 * swap}deg) scale(${1.2 - 0.08 * swap})`;
+    frameOne.style.transform = `translate(${-20 * progress}vw, ${-6 * progress}vh) rotateX(${5 * progress}deg) rotateY(${-34 * progress}deg) scale(${1.14 - 0.08 * progress})`;
+    frameTwo.style.transform = `translate(${24 * (1 - swap)}vw, ${-6 * (1 - swap)}vh) rotateX(${-8 + 8 * swap}deg) rotateY(${38 - 38 * swap}deg) scale(${1.22 - 0.1 * swap})`;
     frameOne.style.filter = "saturate(1.06) contrast(1.08)";
     frameTwo.style.filter = "saturate(1.08) contrast(1.1)";
 
@@ -83,7 +91,12 @@
     panel.style.opacity = String(panelIn);
     panel.style.transform = `translateY(${34 * (1 - panelIn)}px)`;
 
+    quoteCard.style.opacity = String(1 - quoteOut);
+    quoteCard.style.transform = `translate3d(${28 * quoteOut}px, ${-16 * progress}px, 0) scale(${1 - 0.05 * quoteOut})`;
+
     meter.style.transform = `scaleX(${progress})`;
+    if (reactor) reactor.textContent = `${(52.7 - progress * 4.8).toFixed(1)}%`;
+    if (sequence) sequence.textContent = `SEQ ${String(progress < 0.56 ? 1 : 2).padStart(3, "0")} / 002`;
     setCopy(progress < 0.56 ? 0 : 1);
   }
 

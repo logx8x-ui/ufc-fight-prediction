@@ -127,7 +127,7 @@ ul.task-list li input[type="checkbox"] {
         
     </div>
 <!-- main -->
-<main class="content column-page" id="quarto-document-content">
+<main class="content page-columns page-full column-page" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -157,8 +157,18 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section class="cinematic-scroll" data-cinematic-scroll="">
-  <div class="cinematic-pin">
+<header class="site-hud" aria-label="UFC project navigation">
+  <div class="hud-brand"><span></span> UFC / PREDICTION</div>
+  <nav>
+    <a href="#methodology">MODEL</a>
+    <a href="#results">RESULTS</a>
+    <a href="#conclusion">TAKEAWAY</a>
+  </nav>
+  <a class="hud-action" href="#results">ENGAGE</a>
+</header>
+
+<section class="cinematic-scroll page-columns page-full" data-cinematic-scroll="">
+  <div class="cinematic-pin page-columns page-full">
     <div class="cinematic-background" aria-hidden="true"></div>
 
     <div class="frame-deck" aria-label="UFC scroll image sequence">
@@ -166,10 +176,19 @@ ul.task-list li input[type="checkbox"] {
       <img class="fight-frame frame-two" data-frame-two="" src="assets/frames/frame_002.jpg" alt="UFC striking exchange showing reach advantage">
     </div>
 
+    <div class="hud-corners" aria-hidden="true">
+      <span class="corner corner-tl"></span>
+      <span class="corner corner-tr"></span>
+      <span class="corner corner-bl"></span>
+      <span class="corner corner-br"></span>
+      <p class="telemetry-left">TELEMETRY LINK — LIVE</p>
+      <p class="telemetry-right">MODEL SIGNAL <strong data-reactor="">52.7%</strong></p>
+    </div>
+
     <div class="hero-copy" data-hero-copy="">
-      <p class="eyebrow">STAT2005 UFC Project</p>
-      <h1>UFC Fight Prediction</h1>
-      <p>Can height and reach help predict who wins a UFC fight? We tested this using historical fight data and logistic regression.</p>
+      <p class="hero-badge">STAT2005 // UFC MODEL // ONLINE</p>
+      <h1><span>UFC Fight</span><span class="accent">Prediction.</span></h1>
+      <p>Can height and reach help predict who wins a UFC fight? Scroll to run the model story.</p>
     </div>
 
     <div class="scroll-panel" data-scroll-panel="">
@@ -178,8 +197,19 @@ ul.task-list li input[type="checkbox"] {
       <p data-panel-body="">Grappling, cage control, pressure, timing, and skill can overpower simple body measurements.</p>
     </div>
 
+    <aside class="quote-card" data-quote-card="">
+      <p>“Physical traits give clues, not certainty.”</p>
+      <span>UFC model takeaway</span>
+    </aside>
+
     <div class="scroll-meter" aria-hidden="true">
       <span data-scroll-meter=""></span>
+    </div>
+
+    <div class="bottom-telemetry" aria-hidden="true">
+      <span data-sequence="">SEQ 001 / 002</span>
+      <span>LOGISTIC // DIAGNOSTIC</span>
+      <span>SCROLL ↓</span>
     </div>
   </div>
 </section>
