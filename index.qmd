@@ -10,12 +10,14 @@ author:
 ```{=html}
 <header class="site-hud" aria-label="UFC project navigation">
   <div class="hud-brand"><span></span> UFC / PREDICTION</div>
-  <nav>
-    <a href="#methodology">MODEL</a>
-    <a href="#implementation-results">RESULTS</a>
-    <a href="#conclusion">TAKEAWAY</a>
+  <nav aria-label="Report sections">
+    <a href="#introduction-background">Intro</a>
+    <a href="#methodology">Methodology</a>
+    <a href="#implementation-results">Results</a>
+    <a href="#conclusion">Conclusion</a>
+    <a href="#contributions">Contributions</a>
+    <a href="#appendix">Appendix</a>
   </nav>
-  <a class="hud-action" href="#report-roadmap">REPORT</a>
 </header>
 
 <section class="cinematic-scroll" data-cinematic-scroll>
