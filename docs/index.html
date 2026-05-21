@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.36">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Ee Hong Yap">
+<meta name="author" content="Philip Lew">
+<meta name="author" content="Logan Mondi">
+
+<title>UFC Fight Prediction</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-924ca531607c442c3c5a707d77160e01.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">UFC Fight Prediction</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="./index.html" aria-current="page"> 
+<span class="menu-text">Project</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html#methodology"> 
+<span class="menu-text">Methodology</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html#results"> 
+<span class="menu-text">Results</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html#conclusion"> 
+<span class="menu-text">Conclusion</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
+    </div>
+<!-- main -->
+<main class="content column-page" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">UFC Fight Prediction</h1>
+<p class="subtitle lead">Can height and reach predict the winner?</p>
+</div>
+
+
+
+<div class="quarto-title-meta column-page">
+
+    <div>
+    <div class="quarto-title-meta-heading">Authors</div>
+    <div class="quarto-title-meta-contents">
+             <p>Ee Hong Yap </p>
+             <p>Philip Lew </p>
+             <p>Logan Mondi </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section class="cinematic-scroll" data-cinematic-scroll="">
+  <div class="cinematic-pin">
+    <div class="cinematic-background" aria-hidden="true"></div>
+
+    <div class="frame-deck" aria-label="UFC scroll image sequence">
+      <img class="fight-frame frame-one is-active" data-frame-one="" src="assets/frames/frame_001.jpg" alt="UFC grappling exchange near the cage">
+      <img class="fight-frame frame-two" data-frame-two="" src="assets/frames/frame_002.jpg" alt="UFC striking exchange showing reach advantage">
+    </div>
+
+    <div class="hero-copy" data-hero-copy="">
+      <p class="eyebrow">STAT2005 UFC Project</p>
+      <h1>UFC Fight Prediction</h1>
+      <p>Can height and reach help predict who wins a UFC fight? We tested this using historical fight data and logistic regression.</p>
+    </div>
+
+    <div class="scroll-panel" data-scroll-panel="">
+      <p class="panel-kicker" data-panel-kicker="">Frame 1</p>
+      <h2 data-panel-title="" class="anchored">Fights are messy.</h2>
+      <p data-panel-body="">Grappling, cage control, pressure, timing, and skill can overpower simple body measurements.</p>
+    </div>
+
+    <div class="scroll-meter" aria-hidden="true">
+      <span data-scroll-meter=""></span>
+    </div>
+  </div>
+</section>
+
+<section class="project-summary">
+  <div class="summary-card">
+    <span>Dataset</span>
+    <strong>~6000 UFC fights</strong>
+  </div>
+  <div class="summary-card">
+    <span>Model</span>
+    <strong>Logistic regression</strong>
+  </div>
+  <div class="summary-card">
+    <span>Main result</span>
+    <strong>Reach mattered, but only slightly</strong>
+  </div>
+</section>
+
+<section class="report-section" id="problem">
+  <div class="section-grid">
+    <div>
+      <p class="section-kicker">Problem context</p>
+      <h2 class="anchored">The fight is more than size</h2>
+    </div>
+    <div>
+      <p>The Ultimate Fighting Championship is unpredictable because fights are shaped by striking range, wrestling, clinch control, submissions, defence, decision-making, and fatigue. This project focuses on two measurable physical characteristics: height and reach.</p>
+      <p>A reach advantage may help a fighter strike from further away, while height may affect leverage, distance, and clinch positions. The research question is whether those differences are strong enough to help predict who wins.</p>
+      <p>The project also considers the broader idea that prior UFC performance, including win and loss records or streaks, may reflect fighter skill level or mental state. The final implemented model focuses on height and reach differentials because these were the clearest measurable predictors in the analysis.</p>
+      <div class="callout"><strong>Research question:</strong> can UFC fight outcomes be predicted using height and reach differentials, or are these physical traits too limited by themselves?</div>
+    </div>
+  </div>
+</section>
+
+<section class="report-section dark" id="objectives">
+  <div class="section-grid">
+    <div>
+      <p class="section-kicker">Objectives</p>
+      <h2 class="anchored">What we tested</h2>
+    </div>
+    <div>
+      <ul>
+        <li>Determine whether height and reach have a significant impact on UFC fight outcomes.</li>
+        <li>Create a model that estimates the probability of a blue-corner win using physical differentials.</li>
+        <li>Check whether the model performs meaningfully better than a simple 50/50 prediction.</li>
+        <li>Validate the model using historical UFC data and interpret whether the result has practical value for fight analysis.</li>
+      </ul>
+      <p>The project is statistically useful because it shows how likelihood estimation, logistic regression, and large-scale data can be applied to a real sporting problem. Practically, it may help analysts, coaches, fighters, and betting markets understand whether body measurements provide useful information, while also showing the limits of relying on them alone.</p>
+      <div class="metric-grid">
+        <div class="metric"><strong>14</strong><span>selected variables</span></div>
+        <div class="metric"><strong>2</strong><span>main predictors</span></div>
+        <div class="metric"><strong>52.7%</strong><span>joint model accuracy</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="report-section" id="literature-review">
+  <div class="section-grid">
+    <div>
+      <p class="section-kicker">Literature review</p>
+      <h2 class="anchored">Why modelling UFC outcomes makes sense</h2>
+    </div>
+    <div>
+      <p>Previous research into UFC prediction shows that fight outcomes can be studied using probabilistic models, especially when models include fighter history, physical measurements, and performance statistics. Gavin Walsh's predictive analysis is relevant because it explores whether previous fighter information can help estimate winners.</p>
+      <p>Research on anthropometric profiling also supports this project because physical features such as body size, reach, and weight class can influence fighter performance. Holmes, McHale, and Zychaluk similarly showed that mixed martial arts outcomes can be analysed through statistical forecasting rather than only betting odds or personal opinion.</p>
+      <p>Our project builds on those ideas by testing a smaller question: whether height and reach differentials alone provide a measurable predictive signal.</p>
+    </div>
+  </div>
+</section>
+
+<section class="report-section dark" id="methodology">
+  <div class="section-grid">
+    <div>
+      <p class="section-kicker">Methodology</p>
+      <h2 class="anchored">Logistic regression for a binary result</h2>
+    </div>
+    <div>
+      <p>The project uses a publicly available Kaggle UFC dataset containing historical fight information, fighter measurements, and fight outcomes. Although the dataset contains 144 columns, the analysis focuses on selected fighter identifiers, height, reach, age, win/loss records, weight class, and winner.</p>
+      <p>The outcome was converted into a binary variable where a blue-corner win equals 1 and a red-corner win equals 0.</p>
+      <pre><code>ufc$outcome &lt;- ifelse(ufc$Winner == "Blue", 1, 0)</code></pre>
+      <p>Height and reach differentials were calculated relative to the blue-corner fighter.</p>
+      <pre><code>ufc$heightdiff &lt;- ufc$B_Height_cms - ufc$R_Height_cms
+ufc$reachdiff  &lt;- ufc$B_Reach_cms  - ufc$R_Reach_cms</code></pre>
+      <p>The joint logistic regression model was:</p>
+      <pre><code>glm(outcome ~ heightdiff + reachdiff,
+    data = ufc_balanced,
+    family = binomial(link = "logit"))</code></pre>
+      <p>The main assumptions were that measurements are consistent, fights are independent, outcomes are treated as binary wins/losses, and each extra centimetre of height or reach has a constant effect on the log-odds of winning. These assumptions simplify real MMA, but they make the model interpretable.</p>
+      <p>Because red-corner fighters won more often in the raw dataset, red wins were randomly downsampled to match the number of blue wins. This created a balanced dataset so the model did not simply learn a red-corner baseline advantage.</p>
+    </div>
+  </div>
+</section>
+
+<section class="report-section" id="results">
+  <div class="section-grid">
+    <div>
+      <p class="section-kicker">Results</p>
+      <h2 class="anchored">Reach stayed significant. Height did not.</h2>
+    </div>
+    <div>
+      <p>When height and reach were modelled separately, both appeared to have some relationship with winning. However, once both variables were included together, height became statistically insignificant while reach remained significant.</p>
+      <p>Before modelling, the project inspected height and reach differential distributions using histograms, Q-Q plots, and Shapiro-Wilk tests. The distributions were roughly centred around zero and visually close enough for the project purpose, although the formal Shapiro-Wilk test rejected strict normality because the dataset was large.</p>
+      
+<table class="model-table caption-top table">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">Predictor</th>
+<th data-quarto-table-cell-role="th">Joint model result</th>
+<th data-quarto-table-cell-role="th">Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Height differential</td>
+<td>p = 0.478</td>
+<td>Not statistically reliable once reach is included.</td>
+</tr>
+<tr class="even">
+<td>Reach differential</td>
+<td>p = 0.000132</td>
+<td>Small but statistically significant positive effect.</td>
+</tr>
+<tr class="odd">
+<td>Joint model accuracy</td>
+<td>52.73%</td>
+<td>Only slightly better than a coin flip.</td>
+</tr>
+</tbody>
+</table>
+
+      <div class="metric-grid">
+        <div class="metric"><strong>0.0203</strong><span>joint reach coefficient</span></div>
+        <div class="metric"><strong>0.478</strong><span>height p-value</span></div>
+        <div class="metric"><strong>0.6904</strong><span>log-loss</span></div>
+      </div>
+      <p>The confidence interval for height included 1, meaning its true effect could be positive, negative, or zero. The confidence interval for reach stayed above 1, supporting the conclusion that reach has a small but real effect.</p>
+    </div>
+  </div>
+  <div class="figure-row">
+    <figure class="figure-card figure">
+      <img src="assets/figures/unnamed-chunk-4-1.png" alt="Project output figure" class="figure-img">
+      <figcaption>Distribution and diagnostic visualisation from the project outputs.</figcaption>
+    </figure>
+    <figure class="figure-card figure">
+      <img src="assets/figures/unnamed-chunk-8-1.png" alt="Model output figure" class="figure-img">
+      <figcaption>Model visualisation showing how predictor differentials relate to win probability.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="report-section dark" id="interpretation">
+  <div class="section-grid">
+    <div>
+      <p class="section-kicker">Interpretation</p>
+      <h2 class="anchored">Signal, not certainty</h2>
+    </div>
+    <div>
+      <p>The results suggest that height and reach are not enough to reliably predict a UFC fight outcome on their own. Height had no meaningful effect in the joint model, likely because UFC fights occur across striking, clinch, wrestling, and ground exchanges where height can be neutralised.</p>
+      <p>Reach showed the stronger effect. This makes practical sense because a longer reach can allow a fighter to strike from safer range. However, the advantage is often reduced by closing distance, wrestling, footwork, pressure, and technical skill.</p>
+      <div class="callout">Physical traits give a clue, but not a reliable prediction by themselves.</div>
+    </div>
+  </div>
+</section>
+
+<section class="report-section" id="strengths-limitations">
+  <div class="section-grid">
+    <div>
+      <p class="section-kicker">Strengths and limitations</p>
+      <h2 class="anchored">What worked and what held the model back</h2>
+    </div>
+    <div>
+      <h3 class="anchored">Strengths</h3>
+      <ul>
+        <li>The study used a large real-world UFC dataset rather than a tiny sample.</li>
+        <li>Logistic regression matched the binary win/loss structure of the problem.</li>
+        <li>The model was interpretable, making it clear how each centimetre of reach changed the log-odds of winning.</li>
+      </ul>
+      <h3 class="anchored">Limitations</h3>
+      <ul>
+        <li>The model only used height and reach, ignoring skill, style, recent form, injuries, striking accuracy, takedown defence, and other fight-specific factors.</li>
+        <li>The model assumed a linear relationship between physical advantages and log-odds of winning.</li>
+        <li>The final accuracy was only around 52.7%, meaning the model was not practically reliable for prediction.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="report-section dark" id="future-work">
+  <div class="section-grid">
+    <div>
+      <p class="section-kicker">Future work</p>
+      <h2 class="anchored">A better model needs better fight features</h2>
+    </div>
+    <div>
+      <p>Future work could improve predictive performance by adding variables that better describe fighter ability and matchup context. Useful extensions include age, weight class, previous UFC records, win/loss streaks, significant strikes landed per minute, striking defence, takedown average, takedown defence, submission attempts, stance, and recent activity.</p>
+      <p>The modelling approach could also be extended beyond simple logistic regression. Interaction terms, nonlinear logistic models, random forests, or other machine learning methods may capture relationships that a linear log-odds model cannot.</p>
+    </div>
+  </div>
+</section>
+
+<section class="report-section" id="conclusion">
+  <p class="section-kicker">Conclusion</p>
+  <h2 class="anchored">Final takeaway</h2>
+  <div class="conclusion-grid">
+    <article class="conclusion-card">
+      <h3 class="anchored">Results</h3>
+      <p>Height became insignificant in the joint model, while reach remained statistically significant with a small positive effect.</p>
+    </article>
+    <article class="conclusion-card">
+      <h3 class="anchored">Limits</h3>
+      <p>The model predicted only slightly above chance, showing that physical traits alone cannot explain UFC outcomes.</p>
+    </article>
+    <article class="conclusion-card">
+      <h3 class="anchored">Extensions</h3>
+      <p>Future models should include technical performance, fighter history, weight class, and more flexible nonlinear methods.</p>
+    </article>
+    <article class="conclusion-card">
+      <h3 class="anchored">Practical use</h3>
+      <p>Reach is worth considering in analysis, but it should not be used alone for betting, coaching decisions, or serious prediction.</p>
+    </article>
+  </div>
+  <p>Overall, this study found that physical advantages alone are not strong enough to reliably predict the outcome of a UFC fight. Reach differential is the more useful physical predictor, but the joint model's 52.7% accuracy shows that the effect is modest and not enough for dependable forecasting.</p>
+</section>
+
+<section class="report-section dark" id="contributions">
+  <div class="section-grid">
+    <div>
+      <p class="section-kicker">Contribution statements</p>
+      <h2 class="anchored">Project roles</h2>
+    </div>
+    <div>
+      <ul>
+        <li>P. Lew: Methodology, writing, review and editing, model implementation and results.</li>
+        <li>L. Mondi: Methodology, writing, introduction and background, review and editing, web design.</li>
+        <li>E. Yap: Methodology, writing, model implementation and results, review and editing.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="report-section dark" id="references">
+  <div class="section-grid">
+    <div>
+      <p class="section-kicker">References</p>
+      <h2 class="anchored">Sources</h2>
+    </div>
+    <div>
+      <ul>
+        <li>UFC. (2018). <em>History of UFC</em>. https://www.ufc.com/history-ufc</li>
+        <li>Australian Institute of Health and Welfare. (2023). <em>Gambling in Australia</em>. https://www.aihw.gov.au/reports/australias-welfare/gambling</li>
+        <li>Walsh, G. <em>Predictive Analysis of UFC Fights</em>.</li>
+        <li>Holmes, M., McHale, I., &amp; Zychaluk, K. (2023). Probabilistic forecasting methods for mixed martial arts outcomes.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<script src="scroll-frames.js"></script>
+
+
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+<script src="site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

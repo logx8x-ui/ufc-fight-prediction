@@ -1,0 +1,32 @@
+project:
+  type: website
+  output-dir: docs
+  resources:
+    - assets/
+
+website:
+  title: "UFC Fight Prediction"
+  navbar:
+    background: "#0b0d10"
+    foreground: "#f7f7f7"
+    left:
+      - href: index.qmd
+        text: Project
+      - href: index.qmd#methodology
+        text: Methodology
+      - href: index.qmd#results
+        text: Results
+      - href: index.qmd#conclusion
+        text: Conclusion
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+    toc-location: right
+    smooth-scroll: true
+    page-layout: full
+    code-fold: false
+    code-tools: false
+    anchor-sections: true
