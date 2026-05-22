@@ -84,9 +84,12 @@ author:
 
 <section class="report-roadmap" id="report-roadmap" aria-label="Report structure">
   <div class="roadmap-heading">
-    <p class="section-kicker">Final report structure</p>
-    <h2>Find every marking section fast</h2>
-    <p>This site follows the required Project report order, using only the final Project section of the Google Doc.</p>
+    <p class="section-kicker">Authors</p>
+    <div class="author-list" aria-label="Authors and student IDs">
+      <p>Ee Hong Yap (21483954)</p>
+      <p>Philip Lew (21467657)</p>
+      <p>Logan Mondi (23155459)</p>
+    </div>
   </div>
   <div class="roadmap-grid">
     <a href="#introduction-background"><span>1</span>Introduction and Background</a>
@@ -311,7 +314,7 @@ ufc_balanced &lt;- rbind(blue_wins, red_sample)</code></pre>
   </header>
   <div class="contribution-list">
     <p><strong>P. Lew:</strong> Methodology, writing, review and editing, model implementation and results.</p>
-    <p><strong>L. Mondi:</strong> Methodology, writing, introduction and background, review and editing, web design.</p>
+    <p><strong>L. Mondi:</strong> Methodology, writing, introduction and background, conclusion, review and editing, web design.</p>
     <p><strong>E. Yap:</strong> Methodology, writing, model implementation and results, review and editing.</p>
   </div>
 </section>

@@ -446,6 +446,20 @@ main.content.column-page {
   margin-bottom: 30px;
 }
 
+.author-list {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 8px 0 2px;
+}
+
+.author-list p {
+  margin: 0;
+  font-size: clamp(25px, 3vw, 42px);
+  line-height: 1.25;
+  font-weight: 600;
+  color: var(--ink);
+}
+
 .roadmap-heading h2,
 .chapter-header h2 {
   margin: 0;
