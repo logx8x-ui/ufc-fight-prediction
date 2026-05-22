@@ -442,22 +442,33 @@ main.content.column-page {
 }
 
 .roadmap-heading {
-  max-width: 920px;
-  margin-bottom: 30px;
+  max-width: 1180px;
+  margin-bottom: 34px;
 }
 
 .author-list {
-  display: inline-block;
-  margin-top: 8px;
-  padding: 8px 0 2px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 18px;
 }
 
 .author-list p {
   margin: 0;
-  font-size: clamp(25px, 3vw, 42px);
-  line-height: 1.25;
-  font-weight: 600;
+  min-height: 116px;
+  display: flex;
+  align-items: center;
+  padding: 22px 24px;
+  border: 1px solid rgba(0,0,0,.1);
+  border-left: 6px solid var(--gold);
+  background: #fff;
+  box-shadow: 0 16px 42px rgba(0,0,0,.07);
+  font-size: clamp(24px, 2.2vw, 34px);
+  line-height: 1.15;
+  font-weight: 900;
   color: var(--ink);
+  letter-spacing: 0;
+  white-space: normal;
 }
 
 .roadmap-heading h2,
@@ -471,7 +482,7 @@ main.content.column-page {
   text-wrap: balance;
 }
 
-.roadmap-heading p:last-child,
+.roadmap-heading > p:last-child,
 .chapter-lede {
   color: var(--muted);
   font-size: clamp(18px, 2vw, 24px);
@@ -822,6 +833,7 @@ pre {
 
   .project-summary,
   .roadmap-grid,
+  .author-list,
   .chapter-header,
   .report-subsection,
   .metric-grid,
